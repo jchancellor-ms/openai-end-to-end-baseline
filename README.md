@@ -471,7 +471,7 @@ You will need access to the prompt flow files for this experience, since we'll b
 
     The following code will create a folder named 'dist' with a Dockerfile and all the required flow files.
 
-TODO (P1 Jon): Stopped here. THere are two likely TODOs in the acr.bicep file to help make the following work.
+TODO (P1 Jen ): Stopped here. THere are two likely TODOs in the acr.bicep file to help make the following work.
 
 1. Build and push the container image.
 
