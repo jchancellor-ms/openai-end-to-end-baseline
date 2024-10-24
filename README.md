@@ -1,6 +1,6 @@
 # Azure OpenAI end-to-end baseline reference implementation
 
-TODO (P1 Jon Chancellor): Update description
+TODO (P1 Jon ): Update description
 
 This reference implementation illustrates an approach for authoring and running a chat application in a single region with prompt flow and Azure OpenAI. This reference implementation showcases a secure environment for authoring a chat flow and two options for deploying the flow:
 
