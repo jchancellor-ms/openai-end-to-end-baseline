@@ -10,6 +10,9 @@ param baseName string
 @description('The resource group location')
 param location string = resourceGroup().location
 
+@description('The resource group location')
+param locationAppService string = resourceGroup().location
+
 @minLength(1)
 param publishFileName string
 
@@ -105,7 +108,7 @@ resource cognitiveServicesOpenAiUserRole 'Microsoft.Authorization/roleDefinition
 // Managed Identity for App Service
 resource appServiceManagedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   name: 'id-${appName}'
-  location: location
+  location: locationAppService
 }
 
 // Grant the App Service managed identity Key Vault secrets role permissions
@@ -132,7 +135,7 @@ resource blobDataReaderRoleAssignment 'Microsoft.Authorization/roleAssignments@2
 //App service plan
 resource appServicePlan 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: 'asp-${appName}${uniqueString(subscription().subscriptionId)}'
-  location: location
+  location: locationAppService
   kind: 'linux'
   sku: {
     name: 'P1v3'
@@ -148,7 +151,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2023-12-01' = {
 @description('This is the web app that contains the UI application.')
 resource webApp 'Microsoft.Web/sites@2023-12-01' = {
   name: appName
-  location: location
+  location: locationAppService
   kind: 'app'
   identity: {
     type: 'UserAssigned'
@@ -290,7 +293,7 @@ resource appServiceDnsZone 'Microsoft.Network/privateDnsZones@2024-06-01' = {
 // App service plan auto scale settings
 resource appServicePlanAutoScaleSettings 'Microsoft.Insights/autoscalesettings@2022-10-01' = {
   name: '${appServicePlan.name}-autoscale'
-  location: location
+  location: locationAppService
   properties: {
     enabled: true
     targetResourceUri: appServicePlan.id
@@ -334,7 +337,7 @@ resource appServicePlanAutoScaleSettings 'Microsoft.Insights/autoscalesettings@2
 // create application insights resource
 resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: 'appinsights-${appName}'
-  location: location
+  location: locationAppService
   kind: 'web'
   properties: {
     Application_Type: 'web'
@@ -350,7 +353,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 // Web App
 resource webAppPf 'Microsoft.Web/sites@2023-12-01' = {
   name: '${appName}-pf'
-  location: location
+  location: locationAppService
   kind: 'linux'
   identity: {
     type: 'SystemAssigned, UserAssigned'
