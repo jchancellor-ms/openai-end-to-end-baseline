@@ -274,7 +274,7 @@ resource jumpBoxVirtualMachine 'Microsoft.Compute/virtualMachines@2023-07-01' = 
     }
     storageProfile: {
       dataDisks: []
-      diskControllerType: 'SCSI'
+
       osDisk: {
         createOption: 'FromImage'
         caching: 'ReadOnly'
