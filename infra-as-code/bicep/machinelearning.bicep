@@ -132,7 +132,7 @@ resource cognitiveServicesOpenAiUserForUserRoleAssignment 'Microsoft.Authorizati
 // ---- Azure AI Foundry resources ----
 
 @description('A hub provides the hosting environment for this AI workload. It provides security, governance controls, and shared configurations.')
-resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-07-01-preview' = {
+resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-10-01-preview' = {
   name: 'aihub-${baseName}'
   location: location
   kind: 'Hub'
@@ -146,6 +146,7 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-07-01-preview'
                             // to a resource group that only contains the project/hub and relevant resources.
   }
   properties: {
+    provisionNetworkNow: true
     friendlyName: 'Azure OpenAI Chat Hub'
     description: 'Hub to support the Microsoft Learn Azure OpenAI baseline chat implementation. https://learn.microsoft.com/azure/architecture/ai-ml/architecture/baseline-openai-e2e-chat'
     publicNetworkAccess: 'Disabled'
