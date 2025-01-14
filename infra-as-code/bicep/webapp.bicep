@@ -140,10 +140,10 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2023-12-01' = {
   sku: {
     name: 'P1v3'
     tier: 'PremiumV3'
-    capacity: 3
+    capacity: 1
   }
   properties: {
-    zoneRedundant: true
+    zoneRedundant: false
     reserved: true
   }
 }
@@ -303,7 +303,7 @@ resource appServicePlanAutoScaleSettings 'Microsoft.Insights/autoscalesettings@2
         capacity: {
           maximum: '5'
           default: '3'
-          minimum: '3'
+          minimum: '1'
         }
         rules: [
           {
