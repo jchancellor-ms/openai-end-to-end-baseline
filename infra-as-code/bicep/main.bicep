@@ -27,6 +27,10 @@ param jumpBoxAdminPassword string
 @minLength(36)
 param yourPrincipalId string
 
+@description('The sku to use for the jumpbox VM.')
+@minLength(8)
+param jumpBoxSku string = 'Standard_D2s_v3'
+
 // ---- Log Analytics workspace ----
 resource logWorkspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   name: 'log-${baseName}'
@@ -60,6 +64,7 @@ module jumpBoxModule 'jumpbox.bicep' = {
     logWorkspaceName: logWorkspace.name
     jumpBoxAdminName: 'vmadmin'
     jumpBoxAdminPassword: jumpBoxAdminPassword
+    jumpBoxSku: jumpBoxSku
   }
 }
 

@@ -26,6 +26,10 @@ param jumpBoxAdminName string = 'vmadmin'
 @maxLength(123)
 param jumpBoxAdminPassword string
 
+@description('The sku to use for the jumpbox VM.')
+@minLength(8)
+param jumpBoxSku string = 'Standard_D2s_v3'
+
 // ---- Variables ----
 
 var bastionHostName = 'ab-${baseName}'
@@ -227,7 +231,7 @@ resource jumpBoxVirtualMachine 'Microsoft.Compute/virtualMachines@2023-07-01' = 
       }
     }
     hardwareProfile: {
-      vmSize: 'Standard_D2s_v3'
+      vmSize: jumpBoxSku
     }
     licenseType: 'Windows_Client'
     networkProfile: {
