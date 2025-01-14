@@ -151,7 +151,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2023-12-01' = {
 @description('This is the web app that contains the UI application.')
 resource webApp 'Microsoft.Web/sites@2023-12-01' = {
   name: appName
-  location: locationAppService
+  location: location
   kind: 'app'
   identity: {
     type: 'UserAssigned'
@@ -353,7 +353,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 // Web App
 resource webAppPf 'Microsoft.Web/sites@2023-12-01' = {
   name: '${appName}-pf'
-  location: locationAppService
+  location: location
   kind: 'linux'
   identity: {
     type: 'SystemAssigned, UserAssigned'
