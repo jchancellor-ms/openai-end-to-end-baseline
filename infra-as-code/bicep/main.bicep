@@ -161,8 +161,10 @@ module gatewayModule 'gateway.bicep' = {
     appName: webappModule.outputs.appName
     vnetName: networkModule.outputs.vnetNName
     appGatewaySubnetName: networkModule.outputs.appGatewaySubnetName
-    keyVaultName: keyVaultModule.outputs.keyVaultName
-    gatewayCertSecretKey: keyVaultModule.outputs.gatewayCertSecretKey
+    //keyVaultName: keyVaultModule.outputs.keyVaultName
+    keyVaultName: 'kv-${baseName}-1'
+    //gatewayCertSecretKey: keyVaultModule.outputs.gatewayCertSecretKey
+    gatewayCertSecretKey: 'LabSelfSignedCert'
     logWorkspaceName: logWorkspace.name
   }
 }
