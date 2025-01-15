@@ -29,10 +29,10 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
       family: 'A'
       name: 'standard'
     }
-    networkAcls: {
-      defaultAction: 'Deny'
-      bypass: 'AzureServices' // Required for AppGW communication
-    }
+    //networkAcls: {
+    //  defaultAction: 'Deny'
+    //  bypass: 'AzureServices' // Required for AppGW communication
+    // }
     publicNetworkAccess: 'Enabled'
 
     tenantId: subscription().tenantId
