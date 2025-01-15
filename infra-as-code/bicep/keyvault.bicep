@@ -21,6 +21,11 @@ param privateEndpointsSubnetName string
 @description('The name of the workload\'s existing Log Analytics workspace.')
 param logWorkspaceName string
 
+@description('Assign your user some roles to support fluid access when working in the Azure AI Foundry portal')
+@maxLength(36)
+@minLength(36)
+param yourPrincipalId string
+
 //variables
 var keyVaultName = 'kv-${baseName}'
 var keyVaultPrivateEndpointName = 'pep-${keyVaultName}'
@@ -149,6 +154,31 @@ resource keyVaultDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZone
     keyVaultPrivateEndpoint
   ]
 }
+
+//create role assignment for deployment user on the key vault with key vault administrator
+resource keyVaultAdminUserRole 'Microsoft.Authorization/roleDefinitions@2022-04-01' existing = {
+  name: '00482a5a-887f-4fb3-b363-3b7fe8e74483'
+  scope: subscription()
+}
+
+resource keyVaultRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(subscription().subscriptionId, keyVault.id, 'keyVaultRoleAssignment')
+  scope: keyVault
+  properties: {
+    principalId: deployer().objectId
+    roleDefinitionId: keyVaultAdminUserRole.id // Key Vault Administrator
+  }
+}
+
+resource keyVaultRoleAssignmentLabUser 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(subscription().subscriptionId, keyVault.id, 'keyVaultRoleAssignmentLabUser')
+  scope: keyVault
+  properties: {
+    principalId: yourPrincipalId
+    roleDefinitionId: keyVaultAdminUserRole.id // Key Vault Administrator
+  }
+}
+
 
 @description('The name of the Key Vault.')
 output keyVaultName string = keyVault.name

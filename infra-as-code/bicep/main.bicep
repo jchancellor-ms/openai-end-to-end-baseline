@@ -94,6 +94,7 @@ module keyVaultModule 'keyvault.bicep' = {
     privateEndpointsSubnetName: networkModule.outputs.privateEndpointsSubnetName
     appGatewayListenerCertificate: appGatewayListenerCertificate
     logWorkspaceName: logWorkspace.name
+    yourPrincipalId: yourPrincipalId
   }
 }
 
