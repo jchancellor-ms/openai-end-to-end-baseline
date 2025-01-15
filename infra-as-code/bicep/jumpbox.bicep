@@ -213,7 +213,7 @@ resource jumpBoxPrivateNic 'Microsoft.Network/networkInterfaces@2023-05-01' = {
 resource jumpBoxVirtualMachine 'Microsoft.Compute/virtualMachines@2023-07-01' = {
   name: 'vm-${jumpBoxName}'
   location: location
-  zones: pickZones('Microsoft.Compute', 'virtualMachines', location, 1)
+  //zones: pickZones('Microsoft.Compute', 'virtualMachines', location, 1)
   identity: {
     type: 'SystemAssigned'
   }
