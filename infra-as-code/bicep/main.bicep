@@ -2,7 +2,7 @@
 param location string = resourceGroup().location
 
 @description('The location in which all resources should be deployed.')
-param locationAppService string = resourceGroup().location
+param locationAppService string 
 
 @description('This is the base name for each Azure resource name (6-8 chars)')
 @minLength(6)
