@@ -135,7 +135,7 @@ resource blobDataReaderRoleAssignment 'Microsoft.Authorization/roleAssignments@2
 //App service plan
 resource appServicePlan 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: 'asp-${appName}${uniqueString(subscription().subscriptionId)}'
-  location: locationAppService
+  location: location
   kind: 'linux'
   sku: {
     name: 'P1v3'

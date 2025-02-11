@@ -57,6 +57,15 @@ module networkModule 'network.bicep' = {
   }
 }
 
+// Deploy Virtual Network, with subnets, NSGs, and DDoS Protection for webapp
+module networkModule2 'network2.bicep' = {
+  name: 'networkDeploy2'
+  params: {
+    location: locationAppService
+    baseName: baseName
+  }
+}
+
 @description('Deploys Azure Bastion and the jump box, which is used for private access to the Azure ML and Azure OpenAI portals.')
 module jumpBoxModule 'jumpbox.bicep' = {
   name: 'jumpBoxDeploy'
@@ -173,7 +182,7 @@ module gatewayModule 'gateway.bicep' = {
 module webappModule 'webapp.bicep' = {
   name: 'webappDeploy'
   params: {
-    location: location
+    location: locationAppService
     locationAppService: locationAppService
     baseName: baseName
     managedOnlineEndpointResourceId: aiStudioModule.outputs.managedOnlineEndpointResourceId
@@ -186,5 +195,13 @@ module webappModule 'webapp.bicep' = {
     appServicesSubnetName: networkModule.outputs.appServicesSubnetName
     privateEndpointsSubnetName: networkModule.outputs.privateEndpointsSubnetName
     logWorkspaceName: logWorkspace.name
+  }
+}
+
+module networkPeerModule 'network3.bicep' = {
+  name: 'networkPeerDeploy'
+  params: {
+    vnet1: networkModule.outputs.vnetNName
+    vnet2: networkModule2.outputs.vnetNName
   }
 }
